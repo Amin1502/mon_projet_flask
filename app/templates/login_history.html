@@ -1,0 +1,31 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Historique des connexions{% endblock %}
+
+{% block content %}
+
+<h2 class="mt-4 mb-3">Historique des connexions</h2>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Date / heure (UTC)</th>
+            <th>Email</th>
+            <th>IP</th>
+            <th>Navigateur</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log, user in logs %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ log.ip }}</td>
+            <td>{{ log.user_agent }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+

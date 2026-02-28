@@ -1,0 +1,49 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width: 420px;">
+
+    <div class="card shadow-lg p-4 border-0 rounded-4">
+        <h2 class="text-center mb-4 fw-bold">Connexion</h2>
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <!-- EMAIL -->
+            <div class="mb-3">
+                {{ form.email.label(class="form-label fw-semibold") }}
+                {{ form.email(class="form-control", placeholder="exemple@mail.com") }}
+                {% for err in form.email.errors %}
+                    <div class="text-danger small">{{ err }}</div>
+                {% endfor %}
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="mb-3">
+                {{ form.password.label(class="form-label fw-semibold") }}
+                {{ form.password(class="form-control", placeholder="••••••••") }}
+                {% for err in form.password.errors %}
+                    <div class="text-danger small">{{ err }}</div>
+                {% endfor %}
+            </div>
+
+            <!-- BOUTON -->
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-primary btn-lg") }}
+            </div>
+        </form>
+
+        <hr>
+
+        <p class="text-center">
+            Pas encore de compte ?
+            <a href="{{ url_for('register') }}" class="text-decoration-none">Créer un compte</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

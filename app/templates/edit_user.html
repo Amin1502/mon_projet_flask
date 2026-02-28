@@ -1,0 +1,27 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Modifier un compte{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4" style="max-width: 480px;">
+  <h2 class="mb-3">Modifier l’email de {{ user.email }}</h2>
+
+  <form method="POST">
+      {{ form.csrf_token }}
+
+      <div class="mb-3">
+          {{ form.email.label(class="form-label fw-semibold") }}
+          {{ form.email(class="form-control") }}
+          {% for error in form.email.errors %}
+              <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+          {{ form.submit.label.text }}
+      </button>
+  </form>
+</div>
+
+{% endblock %}

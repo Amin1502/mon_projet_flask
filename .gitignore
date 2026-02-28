@@ -1,0 +1,19 @@
+# Mac
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+monenv/
+mon_env/
+venv/
+.env
+
+# Databases / instance
+*.db
+instance/
+
+# Logs
+*.log

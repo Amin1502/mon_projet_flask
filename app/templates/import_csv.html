@@ -1,0 +1,25 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Import CSV{% endblock %}
+
+{% block content %}
+<h2 class="mt-4 mb-3">📥 Importer des utilisateurs (CSV)</h2>
+
+<form method="POST"
+      action="{{ url_for('import_csv') }}"
+      enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+        <label class="form-label">Fichier CSV</label>
+        <input type="file"
+               name="file"
+               class="form-control"
+               accept=".csv"
+               required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Importer
+    </button>
+</form>
+{% endblock %}

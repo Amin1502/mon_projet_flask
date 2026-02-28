@@ -1,0 +1,42 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+  <div class="card shadow-sm" style="max-width: 600px; width: 100%;">
+    <div class="card-body">
+      <h2 class="mb-4 text-center">📩 Contacter l’administrateur</h2>
+
+      <form method="POST">
+        {{ form.csrf_token }}
+
+        <!-- Sujet -->
+        <div class="mb-3">
+          {{ form.subject.label(class="form-label fw-semibold") }}
+          {{ form.subject(class="form-control") }}
+          {% for error in form.subject.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Message -->
+        <div class="mb-3">
+          {{ form.content.label(class="form-label fw-semibold") }}
+          {{ form.content(class="form-control", rows=5) }}
+          {% for error in form.content.errors %}
+            <div class="text-danger small">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Bouton -->
+        <div class="text-center">
+          {{ form.submit(class="btn btn-primary px-4") }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1 class="text-center mb-4 fw-bold">📋 Liste des utilisateurs</h1>
+
+    {% if utilisateurs|length == 0 %}
+        <div class="alert alert-info text-center">
+            Aucun utilisateur trouvé pour le moment.
+        </div>
+    {% else %}
+
+        <table class="table table-hover table-striped align-middle shadow-sm rounded">
+
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Âge</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in utilisateurs %}
+                <tr>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.age }} ans</td>
+
+                    <td class="text-center">
+
+                        <a href="{{ url_for('modifier_utilisateur', id=user.id) }}"
+                           class="btn btn-warning btn-sm me-2">
+                            Modifier
+                        </a>
+
+                        <form action="{{ url_for('supprimer_utilisateur', id=user.id) }}"
+                              method="POST"
+                              style="display:inline;">
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm">
+                                Supprimer
+                            </button>
+                        </form>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary">
+            ← Retour au Dashboard
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Messages reçus{% endblock %}
+
+{% block content %}
+
+<h2 class="mt-4 mb-3">📥 Messages reçus</h2>
+
+<table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Date</th>
+            <th>Expéditeur</th>
+            <th>Sujet</th>
+            <th>Statut</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message, user in messages %}
+        <tr>
+            <td>{{ message.created_at }}</td>
+            <td>{{ user.email }}</td>
+
+            <!-- Sujet cliquable → détail -->
+            <td>
+                <a href="{{ url_for('admin_message_detail', message_id=message.id) }}">
+                    {{ message.subject }}
+                </a>
+            </td>
+
+            <!-- Badge Lu / Non lu -->
+            <td>
+                {% if message.is_read %}
+                    <span class="badge bg-success">Lu</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Non lu</span>
+                {% endif %}
+            </td>
+
+            <!-- Actions -->
+            <td class="text-center">
+                {% if not message.is_read %}
+                <form method="POST"
+                      action="{{ url_for('mark_message_read', message_id=message.id) }}"
+                      style="display:inline-block;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button class="btn btn-sm btn-outline-success">
+                        Marquer comme lu
+                    </button>
+                </form>
+                {% else %}
+                    <span class="text-muted small">–</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

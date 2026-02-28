@@ -1,0 +1,32 @@
+{% extends "base_exo.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h2 class="mb-4 fw-bold">Bienvenue sur mon application Flask</h2>
+
+    {% if current_user.is_authenticated %}
+        <p class="lead">
+            Salut {{ current_user.email }} ! Ravi de te revoir 👋
+        </p>
+
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg mt-3">
+            Accéder au Dashboard
+        </a>
+
+    {% else %}
+        <p class="lead">Bienvenue ! Pour continuer, connecte-toi ou crée un compte.</p>
+
+        <a href="{{ url_for('login') }}"
+           class="btn btn-success btn-lg mt-3 me-2">
+            Connexion
+        </a>
+
+        <a href="{{ url_for('register') }}"
+           class="btn btn-outline-primary btn-lg mt-3">
+            Inscription
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
