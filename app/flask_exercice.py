@@ -1,3 +1,5 @@
+from flask_migrate import Migrate
+
 from flask_wtf import CSRFProtect
 from app.forms_exercice import RegisterForm, LoginForm, UtilisateurForm, ProfileForm, ChangePasswordForm,MessageForm
 import os
@@ -47,7 +49,7 @@ login_manager.login_view = 'login'  # si l'utilisateur non connecté essaie d’
 db_url = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url or "sqlite:///flask_exercice.db"
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 
 
 
