@@ -48,6 +48,11 @@ login_manager.login_view = 'login'  # si l'utilisateur non connecté essaie d’
 
 db_url = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url or "sqlite:///flask_exercice.db"
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+}
+
 db = SQLAlchemy(app)
 
 
