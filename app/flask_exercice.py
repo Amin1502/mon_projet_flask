@@ -729,7 +729,5 @@ def internal_server_error(e):
     return render_template("errors/500.html"), 500
 
 
-@app.route("/test-500")
-def test_500():
-    1 / 0
+
 
