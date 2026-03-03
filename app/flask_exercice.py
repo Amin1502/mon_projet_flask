@@ -10,7 +10,7 @@ from datetime import datetime
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin
-from flask import Flask, render_template, request, redirect, flash, Response
+from flask import Flask, render_template, request, redirect, flash, Response, abort
 from flask_sqlalchemy import SQLAlchemy
 import re
 import io
@@ -49,7 +49,7 @@ login_manager.login_view = 'login'  # si l'utilisateur non connecté essaie d’
 db_url = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url or "sqlite:///flask_exercice.db"
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
 
 
 
@@ -113,6 +113,8 @@ class Utilisateur(db.Model):
     def __repr__(self):
         return f'<Utilisateur {self.nom}>'
 
+
+migrate = Migrate(app, db)
 
 
 @app.route('/hello')
@@ -718,7 +720,13 @@ def import_csv_form():
     return render_template('import_csv.html')
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("errors/404.html"), 404
 
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("errors/500.html"), 500
 
 
 
